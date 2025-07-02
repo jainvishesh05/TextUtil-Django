@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Result - TextUtil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Analyzed Text Result</h2>
+
+        {% if operations %}
+            <h5>Operations Applied:</h5>
+            <ul>
+                {% for op in operations %}
+                    <li>{{ op }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <div class="card p-3">
+            <pre>{{ result }}</pre>
+        </div>
+
+        {% if char_count %}
+            <div class="alert alert-info mt-3">
+                <strong>Character Count:</strong> {{ char_count }}
+            </div>
+        {% endif %}
+
+        <a href="{% url 'home' %}" class="btn btn-primary mt-3">Go Back</a>
+    </div>
+
+    <footer class="text-center mt-5 py-3 bg-light">
+        <p class="mb-0">© 2025 TextUtil | Made with ❤️ using Django</p>
+    </footer>
+</body>
+</html>

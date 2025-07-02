@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TextUtil - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+        <a class="navbar-brand" href="#">TextUtil</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <h1 class="text-center">Welcome to TextUtil</h1>
+        <p class="text-center text-muted">A simple text utility tool to manipulate your text quickly</p>
+
+        <!-- Text Form -->
+        <form method="post" action = "{% url 'result' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="text" class="form-label">Enter your text below:</label>
+                <textarea class="form-control" id="text" name="text" rows="8" placeholder="Type or paste text here..."></textarea>
+            </div>
+
+            <!-- Options -->
+            <div class="mb-3">
+                <label class="form-label">Choose options:</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="remove_punc" id="removePunc">
+                    <label class="form-check-label" for="removePunc">Remove Punctuation</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="to_upper" id="toUpper" onclick = "toggleExclusive('toUpper' , 'toLower')">
+                    <label class="form-check-label" for="toUpper">Convert to UPPERCASE</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="char_count" id="charcount">
+                    <label class="form-check-label" for="charcount">Count Charactors</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="to_lower" id="toLower" onclick = "toggleExclusive('toUpper' , 'toLower')">
+                    <label class="form-check-label" for="toLower">Convert to lowercase</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="remove_newline" id="removeNewline">
+                    <label class="form-check-label" for="removeNewline">Remove New Lines</label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Analyze</button>
+        </form>
+
+        <script>
+            function toggleExclusive(activeId , otherId){
+                const activeCheckBox = document.getElementById(activeId);
+                const otherCheckBox = document.getElementById(otherId);
+
+                if(activeCheckBox.checked){
+                    otherCheckBox.disabled =true;
+                }else{
+                    otherCheckBox.disabled = false;
+                }
+            }
+        </script>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center mt-5 py-3 bg-light">
+        <p class="mb-0">© 2025 TextUtil | Made with ❤️ using Django</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
