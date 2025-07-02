@@ -8,75 +8,110 @@
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-        <a class="navbar-brand" href="#">TextUtil</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarNav" aria-controls="navbarNav"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </nav>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+  <div class="container-fluid px-4">
+    <a class="navbar-brand fw-bold fs-4" href="#">TextUtil</a>
 
-    <!-- Main Content -->
-    <div class="container mt-5">
-        <h1 class="text-center">Welcome to TextUtil</h1>
-        <p class="text-center text-muted">A simple text utility tool to manipulate your text quickly</p>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarNav" aria-controls="navbarNav"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav gap-2">
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="https://github.com/jainvishesh05/TextUtil-Django" target="_blank">GitHub</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+ <!-- Main Content -->
+<div class="container mt-5">
+    <div class="card shadow p-4">
+        <h1 class="text-center fw-bold text-primary display-5"> Welcome to TextUtil</h1>
+        <p class="text-center text-muted fs-5">Your intelligent text analyzer tool</p>
 
         <!-- Text Form -->
-        <form method="post" action = "{% url 'result' %}">
+        <form method="post" action="{% url 'result' %}">
             {% csrf_token %}
             <div class="mb-3">
-                <label for="text" class="form-label">Enter your text below:</label>
+                <label for="text" class="form-label fw-semibold">Enter your text below:</label>
                 <textarea class="form-control" id="text" name="text" rows="8" placeholder="Type or paste text here..."></textarea>
             </div>
 
             <!-- Options -->
-            <div class="mb-3">
-                <label class="form-label">Choose options:</label><br>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="remove_punc" id="removePunc">
-                    <label class="form-check-label" for="removePunc">Remove Punctuation</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="to_upper" id="toUpper" onclick = "toggleExclusive('toUpper' , 'toLower')">
-                    <label class="form-check-label" for="toUpper">Convert to UPPERCASE</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="char_count" id="charcount">
-                    <label class="form-check-label" for="charcount">Count Charactors</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="to_lower" id="toLower" onclick = "toggleExclusive('toUpper' , 'toLower')">
-                    <label class="form-check-label" for="toLower">Convert to lowercase</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="remove_newline" id="removeNewline">
-                    <label class="form-check-label" for="removeNewline">Remove New Lines</label>
+            <div class="card p-3 shadow-sm mb-3">
+                <label class="form-label fw-semibold mb-2">Choose Options:</label>
+                <div class="row row-cols-2 row-cols-md-3 g-3">
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="remove_punc" id="removePunc">
+                            <label class="form-check-label" for="removePunc">Remove Punctuation</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="to_upper" id="toUpper" onclick="toggleExclusive('toUpper', 'toLower')">
+                            <label class="form-check-label" for="toUpper">Convert to UPPERCASE</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="to_lower" id="toLower" onclick="toggleExclusive('toUpper', 'toLower')">
+                            <label class="form-check-label" for="toLower">Convert to lowercase</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="remove_newline" id="removeNewline">
+                            <label class="form-check-label" for="removeNewline">Remove New Lines</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="char_count" id="charcount">
+                            <label class="form-check-label" for="charcount">Count Characters</label>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Analyze</button>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary px-4 py-2 shadow-sm rounded-pill">Analyze</button>
+            </div>
         </form>
-
-        <script>
-            function toggleExclusive(activeId , otherId){
-                const activeCheckBox = document.getElementById(activeId);
-                const otherCheckBox = document.getElementById(otherId);
-
-                if(activeCheckBox.checked){
-                    otherCheckBox.disabled =true;
-                }else{
-                    otherCheckBox.disabled = false;
-                }
-            }
-        </script>
     </div>
+</div>
 
-    <!-- Footer -->
-    <footer class="text-center mt-5 py-3 bg-light">
-        <p class="mb-0">© 2025 TextUtil | Made with ❤️ using Django</p>
-    </footer>
+<!-- Footer -->
+<footer class="bg-dark text-white text-center mt-5 py-4">
+    <div class="container">
+        <p class="mb-1">© 2025 <strong>TextUtil</strong> | Built using Django</p>
+        <p class="small mb-0">Created by <a href="https://github.com/jainvishesh05" target="_blank" class="text-info text-decoration-none">Vishesh Jain</a></p>
+    </div>
+</footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<script>
+    function toggleExclusive(activeId, otherId) {
+        const activeCheckBox = document.getElementById(activeId);
+        const otherCheckBox = document.getElementById(otherId);
+        if (activeCheckBox.checked) {
+            otherCheckBox.disabled = true;
+        } else {
+            otherCheckBox.disabled = false;
+        }
+    }
+</script>
